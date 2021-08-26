@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "@emotion/styled";
 
 import { Card } from "../card";
-
-interface Props {}
+import { GameContext } from "../../context/gameContext";
 
 const StyledCards = styled.section`
   display: grid;
@@ -12,21 +11,15 @@ const StyledCards = styled.section`
   padding: 87px 0;
 `;
 
-export const Cards = (props: Props) => {
-  const handleClick = (name: string) => {
-    console.log(name);
-  };
+interface Props {}
 
+export const Cards = (props: Props) => {
+  const { characters } = useContext(GameContext);
   return (
     <StyledCards>
-      <Card
-        name="Rick Sanchez"
-        image="https://rickandmortyapi.com/api/character/avatar/1.jpeg"
-        gender="Male"
-        location="Earth"
-        status="Alive"
-        handleClick={handleClick}
-      />
+      {characters.map((character) => (
+        <Card key={character.id} {...character} characterIsVisible />
+      ))}
     </StyledCards>
   );
 };

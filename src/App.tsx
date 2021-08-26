@@ -1,15 +1,18 @@
 import React from "react";
-import { Cards } from "./components/cards";
 
+import { GameContextProvider } from "./context/gameContext";
 import { Header } from "./components/header";
+import { Cards } from "./components/cards";
 import { GlobalStyles } from "./styles/GlobalStyles";
 
 export const App = () => {
   return (
-    <section className="wrapper">
-      <GlobalStyles />
-      <Header />
-      <Cards />
-    </section>
+    <GameContextProvider>
+      <section className="wrapper">
+        <GlobalStyles />
+        <Header />
+        <Cards />
+      </section>
+    </GameContextProvider>
   );
 };

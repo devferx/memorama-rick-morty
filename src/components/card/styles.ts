@@ -8,7 +8,7 @@ interface StyledCardProps {
 export const StyledCard = styled.div<StyledCardProps>`
   position: relative;
   width: 100%;
-
+  height: 100%;
   transform-style: preserve-3d;
   transition: 450ms;
 
@@ -26,6 +26,7 @@ export const StyledCard = styled.div<StyledCardProps>`
   }
 
   .face.front {
+    height: 100%;
     border-radius: 8px;
     background: url("/src/assets/images/card-bg.png"), #303030;
     background-size: contain;
@@ -68,5 +69,8 @@ export const CardContent = styled.div`
     span {
       font: var(--body1-regular);
     }
+  }
+  .location {
+    grid-area: place;
   }
 `;
