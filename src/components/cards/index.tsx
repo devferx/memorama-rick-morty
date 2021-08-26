@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 
 import { Card } from "../card";
@@ -14,11 +14,16 @@ const StyledCards = styled.section`
 interface Props {}
 
 export const Cards = (props: Props) => {
-  const { characters } = useContext(GameContext);
+  const { characters, activeIndexes } = useContext(GameContext);
+
   return (
     <StyledCards>
       {characters.map((character) => (
-        <Card key={character.id} {...character} characterIsVisible />
+        <Card
+          key={character.id}
+          {...character}
+          characterIsVisible={activeIndexes.includes(character.id)}
+        />
       ))}
     </StyledCards>
   );
