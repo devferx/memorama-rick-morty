@@ -14,6 +14,7 @@ export interface GameState {
 
 export interface GameContextT extends GameState {
   selectCard: (index: number) => void;
+  initGame: () => void;
 }
 
 export const GameContext = createContext({} as GameContextT);
@@ -60,15 +61,11 @@ export const GameContextProvider = ({ children }: GameContextProps) => {
   };
 
   useEffect(() => {
-    initGame();
-  }, []);
-
-  useEffect(() => {
     checkSelectedCardsMatch();
   }, [state.activeIds]);
 
   return (
-    <GameContext.Provider value={{ ...state, selectCard }}>
+    <GameContext.Provider value={{ ...state, selectCard, initGame }}>
       {children}
     </GameContext.Provider>
   );
