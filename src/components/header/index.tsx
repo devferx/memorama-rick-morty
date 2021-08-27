@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "@emotion/styled";
 
 import logo from "../../assets/images/logo.png";
 import coins from "../../assets/icons/coins.svg";
 import heart from "../../assets/icons/heart.svg";
+import { GameContext } from "../../context/gameContext";
 
 interface Props {}
 
@@ -30,6 +31,7 @@ const HeaderItem = styled.div`
 `;
 
 export const Header = (props: Props) => {
+  const { lifes, score } = useContext(GameContext);
   return (
     <StyledHeader>
       <img src={logo} alt="Rick and Morty Logo" />
@@ -37,11 +39,11 @@ export const Header = (props: Props) => {
       <HeaderContent>
         <HeaderItem>
           <img src={coins} alt="Coins" />
-          <span>$0000</span>
+          <span>${score}</span>
         </HeaderItem>
         <HeaderItem>
           <img src={heart} alt="Heart" />
-          <span>x3</span>
+          <span>x{lifes}</span>
         </HeaderItem>
       </HeaderContent>
     </StyledHeader>

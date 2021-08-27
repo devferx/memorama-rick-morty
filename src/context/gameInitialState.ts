@@ -3,7 +3,8 @@ import { GameState } from "./gameContext";
 export const initialGameState: GameState = {
   score: 0,
   lifes: 3,
-  activeIndexes: [],
+  activeIds: [],
+  selectedCards: 0,
   characters: [
     {
       id: 1,

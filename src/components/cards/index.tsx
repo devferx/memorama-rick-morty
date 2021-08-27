@@ -14,7 +14,11 @@ const StyledCards = styled.section`
 interface Props {}
 
 export const Cards = (props: Props) => {
-  const { characters, activeIndexes } = useContext(GameContext);
+  const {
+    characters,
+    activeIds: activeIndexes,
+    selectCard,
+  } = useContext(GameContext);
 
   return (
     <StyledCards>
@@ -23,6 +27,7 @@ export const Cards = (props: Props) => {
           key={character.id}
           {...character}
           characterIsVisible={activeIndexes.includes(character.id)}
+          handleClick={() => selectCard(character.id)}
         />
       ))}
     </StyledCards>

@@ -6,7 +6,10 @@ type GameAction =
   | { type: "ACTIVE_ALL_CARDS" }
   | {
       type: "DISABLE_ALL_CARDS";
-    };
+    }
+  | { type: "SELECT_CARD"; payload: number }
+  | { type: "MATCH_CARDS" }
+  | { type: "LOOSE" };
 
 function shuffleCharacters(characters: Character[]): Character[] {
   const duplicateCharacters = characters.map((character) => ({
@@ -31,12 +34,31 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
     case "ACTIVE_ALL_CARDS":
       return {
         ...state,
-        activeIndexes: state.characters.map((character) => character.id),
+        activeIds: state.characters.map((character) => character.id),
       };
     case "DISABLE_ALL_CARDS":
       return {
         ...state,
-        activeIndexes: [],
+        activeIds: [],
+      };
+    case "SELECT_CARD":
+      return {
+        ...state,
+        activeIds: [...state.activeIds, action.payload],
+        selectedCards: state.selectedCards + 1,
+      };
+    case "MATCH_CARDS":
+      return {
+        ...state,
+        selectedCards: 0,
+        score: state.score + 100,
+      };
+    case "LOOSE":
+      return {
+        ...state,
+        lifes: state.lifes - 1,
+        selectedCards: 0,
+        activeIds: state.activeIds.slice(0, -2),
       };
     default:
       return state;

@@ -7,11 +7,16 @@ import { initialGameState } from "./gameInitialState";
 export interface GameState {
   score: number;
   lifes: number;
+  selectedCards: number;
   characters: Character[];
-  activeIndexes: number[];
+  activeIds: number[];
 }
 
-export const GameContext = createContext({} as GameState);
+export interface GameContextT extends GameState {
+  selectCard: (index: number) => void;
+}
+
+export const GameContext = createContext({} as GameContextT);
 
 interface GameContextProps {
   children: React.ReactNode | null;
@@ -19,6 +24,7 @@ interface GameContextProps {
 
 export const GameContextProvider = ({ children }: GameContextProps) => {
   const [state, dispatch] = useReducer(gameReducer, initialGameState);
+  const { activeIds: activeIndexes, characters, selectedCards } = state;
 
   const initGame = () => {
     dispatch({ type: "INIT_GAME" });
@@ -28,11 +34,42 @@ export const GameContextProvider = ({ children }: GameContextProps) => {
     }, 1000);
   };
 
+  const selectCard = (index: number) => {
+    dispatch({ type: "SELECT_CARD", payload: index });
+  };
+
+  const checkSelectedCardsMatch = () => {
+    if (activeIndexes.length < 2 || activeIndexes.length == characters.length)
+      return;
+
+    const lastId = activeIndexes[activeIndexes.length - 1];
+    const penultimateId = activeIndexes[activeIndexes.length - 2];
+
+    const character1 = characters.find((c) => c.id === lastId);
+    const character2 = characters.find((c) => c.id === penultimateId);
+
+    if (character1?.name === character2?.name && selectedCards === 2) {
+      dispatch({ type: "MATCH_CARDS" });
+    }
+
+    if (character1?.name !== character2?.name && selectedCards === 2) {
+      setTimeout(() => {
+        dispatch({ type: "LOOSE" });
+      }, 500);
+    }
+  };
+
   useEffect(() => {
     initGame();
   }, []);
 
+  useEffect(() => {
+    checkSelectedCardsMatch();
+  }, [state.activeIds]);
+
   return (
-    <GameContext.Provider value={{ ...state }}>{children}</GameContext.Provider>
+    <GameContext.Provider value={{ ...state, selectCard }}>
+      {children}
+    </GameContext.Provider>
   );
 };
