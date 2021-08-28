@@ -26,7 +26,7 @@ const InitModal = () => {
       <div className="content">
         <img src={logo} alt="Rick and Morty Logo" />
 
-        <Button>Comenzar</Button>
+        <Button>Jugar</Button>
       </div>
     </StyledModal>,
     document.getElementById("modal")!
