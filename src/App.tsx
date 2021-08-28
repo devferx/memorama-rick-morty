@@ -1,5 +1,3 @@
-import React from "react";
-
 import { GameContextProvider } from "./context/gameContext";
 import { Header } from "./components/header";
 import { Cards } from "./components/cards";

@@ -1,4 +1,5 @@
-import React, { createContext, useEffect, useReducer } from "react";
+import { createContext, useEffect, useReducer } from "react";
+import type { ReactNode } from "react";
 
 import { gameReducer } from "./gameReducer";
 import { Character } from "../interfaces/characters";
@@ -20,7 +21,7 @@ export interface GameContextT extends GameState {
 export const GameContext = createContext({} as GameContextT);
 
 interface GameContextProps {
-  children: React.ReactNode | null;
+  children: ReactNode | null;
 }
 
 export const GameContextProvider = ({ children }: GameContextProps) => {

@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Character } from "../../interfaces/characters";
 import { StyledCard, CardContent } from "./styles";
 

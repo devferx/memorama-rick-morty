@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import styled from "@emotion/styled";
 
 import { Card } from "../card";
