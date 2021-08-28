@@ -1,6 +1,8 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
+import modalBg from "../../assets/images/modal-bg.png";
+
 interface StyledModalProps {
   isDisplaying: boolean;
 }
@@ -37,7 +39,7 @@ export const StyledModal = styled.div<StyledModalProps>`
     min-width: 588px;
     min-height: 419px;
     border-radius: 40px;
-    background: url("/src/assets/images/modal-bg.png"), #252525;
+    background: url("${modalBg}"), #252525;
     background-size: cover;
     background-position: center;
     transform: translateY(-1000px);

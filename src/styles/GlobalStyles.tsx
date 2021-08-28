@@ -1,5 +1,6 @@
-import React from "react";
 import { Global, css } from "@emotion/react";
+
+import bg from "../assets/images/bg.png";
 
 export const GlobalStyles = () => (
   <Global
@@ -28,7 +29,7 @@ export const GlobalStyles = () => (
       body {
         width: 100%;
         min-height: 100vh;
-        background: url("/src/assets/images/bg.png"), #01071a;
+        background: url(${bg}), #01071a;
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;

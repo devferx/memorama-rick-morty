@@ -1,6 +1,8 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
+import cardBg from "../../assets/images/card-bg.png";
+
 interface StyledCardProps {
   characterIsVisible?: boolean;
 }
@@ -28,7 +30,7 @@ export const StyledCard = styled.div<StyledCardProps>`
   .face.front {
     height: 100%;
     border-radius: 8px;
-    background: url("/src/assets/images/card-bg.png"), #303030;
+    background: url("${cardBg}"), #303030;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
