@@ -9,6 +9,10 @@ const StyledCards = styled.section`
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 24px;
   padding: 87px 0;
+
+  @media screen and (max-width: 522px) {
+    padding: 0px;
+  }
 `;
 
 interface Props {}

@@ -13,11 +13,21 @@ const StyledHeader = styled.header`
   align-items: center;
   justify-content: space-between;
   padding: 40px 0;
+
+  @media screen and (max-width: 522px) {
+    img {
+      height: 24px;
+    }
+  }
 `;
 
 const HeaderContent = styled.div`
   display: flex;
   gap: 80px;
+
+  @media screen and (max-width: 522px) {
+    gap: 24px;
+  }
 `;
 
 const HeaderItem = styled.div`
@@ -27,6 +37,16 @@ const HeaderItem = styled.div`
   span {
     font: var(--headline1);
     color: var(--white);
+  }
+
+  @media screen and (max-width: 522px) {
+    img {
+      width: 24px;
+    }
+
+    span {
+      font: var(--body1-bold);
+    }
   }
 `;
 

@@ -36,8 +36,8 @@ export const StyledModal = styled.div<StyledModalProps>`
     justify-content: space-between;
     align-items: flex-start;
     padding: 32px;
-    min-width: 588px;
-    min-height: 419px;
+    width: 588px;
+    height: 419px;
     border-radius: 40px;
     background: url("${modalBg}"), #252525;
     background-size: cover;
@@ -50,5 +50,13 @@ export const StyledModal = styled.div<StyledModalProps>`
       css`
         transform: translateY(0px);
       `}
+  }
+
+  @media screen and (max-width: 614px) {
+    padding: 16px;
+
+    .content {
+      width: 100%;
+    }
   }
 `;
