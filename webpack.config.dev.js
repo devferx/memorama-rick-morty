@@ -17,6 +17,7 @@ module.exports = {
     compress: true,
     historyApiFallback: true,
     port: 3000,
+    hot: false,
   },
   resolve: {
     alias: {},
