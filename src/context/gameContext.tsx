@@ -30,9 +30,8 @@ export const GameContextProvider = ({ children }: GameContextProps) => {
     }, 0);
   };
 
-  const selectCard = (index: number) => {
+  const selectCard = (index: number) =>
     dispatch({ type: "SELECT_CARD", payload: index });
-  };
 
   const checkSelectedCardsMatch = () => {
     if (activeIndexes.length < 2 || activeIndexes.length == characters.length)
@@ -68,8 +67,11 @@ export const GameContextProvider = ({ children }: GameContextProps) => {
     }
   };
 
-  const closeModal = () => {
-    dispatch({ type: "CLOSE_MODAL_MESSAGE" });
+  const closeModal = () => dispatch({ type: "CLOSE_MODAL_MESSAGE" });
+
+  const resetGame = () => {
+    dispatch({ type: "RESET" });
+    initGame();
   };
 
   useEffect(() => {
@@ -80,7 +82,7 @@ export const GameContextProvider = ({ children }: GameContextProps) => {
 
   return (
     <GameContext.Provider
-      value={{ ...state, initGame, selectCard, closeModal }}
+      value={{ ...state, initGame, selectCard, closeModal, resetGame }}
     >
       {children}
     </GameContext.Provider>

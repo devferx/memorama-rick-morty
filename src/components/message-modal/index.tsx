@@ -9,11 +9,19 @@ import { StyledModal } from "./styles";
 import logo from "../../assets/images/logo.png";
 
 export const MessageModal = () => {
-  const { modalMessage, closeModal } = useContext(GameContext);
+  const { modalMessage, closeModal, resetGame } = useContext(GameContext);
   const { show, message, buttonText } = modalMessage;
 
+  const handleClick = () => {
+    if (buttonText === "Volver a jugar") {
+      resetGame();
+    }
+
+    closeModal();
+  };
+
   return ReactDOM.createPortal(
-    <StyledModal isDisplaying={show} onClick={closeModal}>
+    <StyledModal isDisplaying={show} onClick={handleClick}>
       <div className="content">
         <img src={logo} alt="Rick and Morty Logo" />
 

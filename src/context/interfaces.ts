@@ -16,5 +16,6 @@ export interface GameState {
 export interface GameContextT extends GameState {
   selectCard: (index: number) => void;
   initGame: () => void;
+  resetGame: () => void;
   closeModal: () => void;
 }

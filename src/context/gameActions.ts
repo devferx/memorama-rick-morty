@@ -9,4 +9,5 @@ export type GameAction =
   | { type: "LOOSE" }
   | { type: "CLOSE_MODAL_MESSAGE" }
   | { type: "WIN" }
-  | { type: "GAME_OVER" };
+  | { type: "GAME_OVER" }
+  | { type: "RESET" };

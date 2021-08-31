@@ -1,6 +1,8 @@
-import { shuffleCharacters } from "../utils/shuffleCharaters";
 import type { GameAction } from "./gameActions";
 import type { GameState } from "./interfaces";
+
+import { initialGameState } from "./gameInitialState";
+import { shuffleCharacters } from "../utils/shuffleCharaters";
 
 export function gameReducer(state: GameState, action: GameAction): GameState {
   switch (action.type) {
@@ -73,6 +75,10 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
           buttonText: "Volver a jugar",
           show: true,
         },
+      };
+    case "RESET":
+      return {
+        ...initialGameState,
       };
     default:
       return state;
