@@ -1,10 +1,15 @@
-import { GameState } from "./gameContext";
+import { GameState } from "./interfaces";
 
 export const initialGameState: GameState = {
   score: 0,
   lifes: 3,
   activeIds: [],
   selectedCards: 0,
+  modalMessage: {
+    message: "",
+    buttonText: "",
+    show: false,
+  },
   characters: [
     {
       id: 1,

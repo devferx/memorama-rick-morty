@@ -4,19 +4,7 @@ import type { ReactNode } from "react";
 import { gameReducer } from "./gameReducer";
 import { Character } from "../interfaces/characters";
 import { initialGameState } from "./gameInitialState";
-
-export interface GameState {
-  score: number;
-  lifes: number;
-  selectedCards: number;
-  characters: Character[];
-  activeIds: number[];
-}
-
-export interface GameContextT extends GameState {
-  selectCard: (index: number) => void;
-  initGame: () => void;
-}
+import { GameContextT } from "./interfaces";
 
 export const GameContext = createContext({} as GameContextT);
 
@@ -26,14 +14,20 @@ interface GameContextProps {
 
 export const GameContextProvider = ({ children }: GameContextProps) => {
   const [state, dispatch] = useReducer(gameReducer, initialGameState);
-  const { activeIds: activeIndexes, characters, selectedCards } = state;
+  const {
+    activeIds: activeIndexes,
+    characters,
+    selectedCards,
+    score,
+    lifes,
+  } = state;
 
   const initGame = () => {
     dispatch({ type: "INIT_GAME" });
     setTimeout(() => {
       dispatch({ type: "ACTIVE_ALL_CARDS" });
       setTimeout(() => dispatch({ type: "DISABLE_ALL_CARDS" }), 2500);
-    }, 1000);
+    }, 0);
   };
 
   const selectCard = (index: number) => {
@@ -47,12 +41,13 @@ export const GameContextProvider = ({ children }: GameContextProps) => {
     const lastId = activeIndexes[activeIndexes.length - 1];
     const penultimateId = activeIndexes[activeIndexes.length - 2];
 
-    const character1 = characters.find((c) => c.id === lastId);
-    const character2 = characters.find((c) => c.id === penultimateId);
+    const character1 = characters.find((c: Character) => c.id === lastId);
+    const character2 = characters.find(
+      (c: Character) => c.id === penultimateId
+    );
 
-    if (character1?.name === character2?.name && selectedCards === 2) {
+    if (character1?.name === character2?.name && selectedCards === 2)
       dispatch({ type: "MATCH_CARDS" });
-    }
 
     if (character1?.name !== character2?.name && selectedCards === 2) {
       setTimeout(() => {
@@ -61,12 +56,32 @@ export const GameContextProvider = ({ children }: GameContextProps) => {
     }
   };
 
+  const checkGameWin = () => {
+    if (activeIndexes.length === characters.length && score > 100) {
+      dispatch({ type: "WIN" });
+    }
+  };
+
+  const checkGameOver = () => {
+    if (lifes === 0) {
+      dispatch({ type: "GAME_OVER" });
+    }
+  };
+
+  const closeModal = () => {
+    dispatch({ type: "CLOSE_MODAL_MESSAGE" });
+  };
+
   useEffect(() => {
+    checkGameOver();
     checkSelectedCardsMatch();
+    checkGameWin();
   }, [state.activeIds]);
 
   return (
-    <GameContext.Provider value={{ ...state, selectCard, initGame }}>
+    <GameContext.Provider
+      value={{ ...state, initGame, selectCard, closeModal }}
+    >
       {children}
     </GameContext.Provider>
   );

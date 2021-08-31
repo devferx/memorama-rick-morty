@@ -8,12 +8,12 @@ import { StyledModal } from "./styles";
 
 import logo from "../../assets/images/logo.png";
 
-const InitModal = () => {
+export const InitModal = () => {
   const [isDisplaying, setIsDisplaying] = useState(false);
   const { initGame } = useContext(GameContext);
 
   const handleClick = () => {
-    setIsDisplaying(!isDisplaying);
+    setIsDisplaying(false);
     initGame();
   };
 
@@ -32,5 +32,3 @@ const InitModal = () => {
     document.getElementById("modal")!
   );
 };
-
-export default InitModal;

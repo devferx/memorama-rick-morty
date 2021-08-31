@@ -1,7 +1,8 @@
 import { GameContextProvider } from "./context/gameContext";
 import { Header } from "./components/header";
 import { Cards } from "./components/cards";
-import InitModal from "./components/init-modal";
+import { InitModal } from "./components/init-modal";
+import { MessageModal } from "./components/message-modal";
 import { GlobalStyles } from "./styles/GlobalStyles";
 
 export const App = () => {
@@ -14,6 +15,7 @@ export const App = () => {
       </section>
 
       <InitModal />
+      <MessageModal />
     </GameContextProvider>
   );
 };

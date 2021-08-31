@@ -1,28 +1,6 @@
-import { GameState } from "./gameContext";
-import { Character } from "../interfaces/characters";
-
-type GameAction =
-  | { type: "INIT_GAME" }
-  | { type: "ACTIVE_ALL_CARDS" }
-  | {
-      type: "DISABLE_ALL_CARDS";
-    }
-  | { type: "SELECT_CARD"; payload: number }
-  | { type: "MATCH_CARDS" }
-  | { type: "LOOSE" };
-
-function shuffleCharacters(characters: Character[]): Character[] {
-  const duplicateCharacters = characters.map((character) => ({
-    ...character,
-    id: characters.length + character.id,
-  }));
-
-  const allCharacters = [...characters, ...duplicateCharacters];
-
-  const shuffledCharacters = allCharacters.sort((a, b) => 0.5 - Math.random());
-
-  return shuffledCharacters;
-}
+import { shuffleCharacters } from "../utils/shuffleCharaters";
+import type { GameAction } from "./gameActions";
+import type { GameState } from "./interfaces";
 
 export function gameReducer(state: GameState, action: GameAction): GameState {
   switch (action.type) {
@@ -52,6 +30,11 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         ...state,
         selectedCards: 0,
         score: state.score + 100,
+        modalMessage: {
+          message: "¡Felicidades!, has encontrado un par.",
+          buttonText: "Continuar",
+          show: true,
+        },
       };
     case "LOOSE":
       return {
@@ -59,6 +42,37 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         lifes: state.lifes - 1,
         selectedCards: 0,
         activeIds: state.activeIds.slice(0, -2),
+        modalMessage: {
+          message: "¡Cuidado!, ese no es el par correcto.",
+          buttonText: "Continuar",
+          show: true,
+        },
+      };
+    case "CLOSE_MODAL_MESSAGE":
+      return {
+        ...state,
+        modalMessage: {
+          ...state.modalMessage,
+          show: false,
+        },
+      };
+    case "WIN":
+      return {
+        ...state,
+        modalMessage: {
+          message: "¡Felicidades!, has completado el juego.",
+          buttonText: "Volver a jugar",
+          show: true,
+        },
+      };
+    case "GAME_OVER":
+      return {
+        ...state,
+        modalMessage: {
+          message: "Te has quedado sin vidas.",
+          buttonText: "Volver a jugar",
+          show: true,
+        },
       };
     default:
       return state;
